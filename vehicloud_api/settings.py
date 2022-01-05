@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-)!m!mm*b785=htr=3suq6pb7q)3c%y^5$fq@tka1&j9%+k7pl-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'vehicloud.apps.PagesConfig', #function in vehicloud/apps.py
+    'vehicloud.apps.VehicloudConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
