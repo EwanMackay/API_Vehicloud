@@ -1,1 +1,1 @@
-web: gunicorn vehicloud_api.wsgi --log-file -
+web: gunicorn vehicloud_api.wsgi --log-file
