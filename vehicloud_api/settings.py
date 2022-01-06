@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-)!m!mm*b785=htr=3suq6pb7q)3c%y^5$fq@tka1&j9%+k7pl-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'vehicloud.herokuapp.com']
 
 
 # Application definition
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'vehicloud.apps.VehicloudConfig',
     'rest_framework',
+    'whitenoise.runserver_nostatic',
 ]
 
 MIDDLEWARE = [
@@ -78,7 +80,7 @@ WSGI_APPLICATION = 'vehicloud_api.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
@@ -120,11 +122,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-# The absolute path to the directory where collectstatic will collect static files for deployment.
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-
 # The URL to use when referring to static files (where they will be served from)
 STATIC_URL = '/static/'
+
+# The absolute path to the directory where collectstatic will collect static files for deployment.
+STATIC_ROOT = BASE_DIR / 'static'
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# location where you will store your static files
+STATICFILES_DIRS = [os.path.join(BASE_DIR, BASE_DIR/'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -132,6 +139,5 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Heroku: Update database configuration from $DATABASE_URL.
-import dj_database_url
 db_from_env = dj_database_url.config() #conn_max_age=500 in the brackets to make connection persistent
 DATABASES['default'].update(db_from_env)
