@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import dj_database_url
+import django_on_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -79,11 +80,11 @@ WSGI_APPLICATION = 'vehicloud_api.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'ciba',
+        }
     }
-}
 
 
 # Password validation
@@ -122,14 +123,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-# The URL to use when referring to static files (where they will be served from)
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-
-# The absolute path to the directory where collectstatic will collect static files for deployment.
-STATIC_ROOT = BASE_DIR / 'static'
-
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 # location where you will store your static files
 STATICFILES_DIRS = [os.path.join(BASE_DIR, BASE_DIR/'static')
 
@@ -138,6 +134,8 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, BASE_DIR/'static')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+django_on_heroku.settings(locals())
+
 # Heroku: Update database configuration from $DATABASE_URL.
-db_from_env = dj_database_url.config() #conn_max_age=500 in the brackets to make connection persistent
-DATABASES['default'].update(db_from_env)
+#db_from_env = dj_database_url.config() #conn_max_age=500 in the brackets to make connection persistent
+#DATABASES['default'].update(db_from_env)
