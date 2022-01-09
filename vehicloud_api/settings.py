@@ -83,6 +83,7 @@ DATABASES = {
     }
 }
 
+"""
 # added from third party for better logging
 LOGGING = {
     'version': 1,
@@ -122,6 +123,7 @@ LOGGING = {
         },
     }
 }####
+"""
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
