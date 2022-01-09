@@ -81,6 +81,10 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, "db.sqlite3"),     
     }
 }
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=500) # in the brackets to make connection persistent
+DATABASES['default'].update(db_from_env)
+
 
 """
 # added from third party for better logging
@@ -170,9 +174,7 @@ STATIC_URL = "/static/"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Heroku: Update database configuration from $DATABASE_URL.
-import dj_database_url
-#db_from_env = dj_database_url.config() #conn_max_age=500 in the brackets to make connection persistent
-#DATABASES['default'].update(db_from_env)
+
 
 # Configure Django App for Heroku.
 #import django_on_heroku
